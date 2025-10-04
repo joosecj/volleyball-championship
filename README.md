@@ -1,133 +1,173 @@
-# 🏐 Torneio de Duplas - Escola Professor Cezar
+# 🏐 Torneio de Duplas - Beach Vôlei
 
-Landing page mobile-first para acompanhamento do torneio de duplas de beach vôlei da Escola Professor Cezar.
+Landing page para torneio de duplas de beach vôlei da Escola Professor Cezar.
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Tecnologias
 
-- **Next.js 15** com App Router
-- **TypeScript** para tipagem estática
-- **Tailwind CSS** para estilização
-- **Shadcn UI** para componentes
-- **Framer Motion** para animações
-- **Yarn** como gerenciador de pacotes
+- **Next.js 15** - React framework
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Styling
+- **Framer Motion** - Animações
+- **Shadcn UI** - Componentes
+- **Yarn** - Package manager
 
-## 📱 Funcionalidades
+## 📱 Características
 
-### ✅ Implementadas
-- **Grupos**: Exibição dos grupos A e B com classificação
-- **Jogos**: Lista de todos os jogos da fase de grupos
-- **Chaveamento**: Semifinais e finais com animações
-- **Premiação**: Exibição dos prêmios para 1º, 2º e 3º lugares
-- **Regras**: Regulamento completo do torneio
-- **Patrocinadores**: Seção de parceiros e apoiadores
-- **Layout Responsivo**: Mobile-first design
-- **Animações**: Transições suaves com Framer Motion
+- **Mobile-first** - Design responsivo
+- **Animações suaves** - Framer Motion
+- **Tempo real** - Contador regressivo
+- **Interativo** - Navegação por abas
+- **Moderno** - UI/UX atual
+- **Simples** - Edição direta no JSON
 
-### 🎨 Design
-- Paleta de cores personalizada baseada no logo
-- Interface moderna e intuitiva
-- Navegação por abas
-- Cards informativos com hover effects
-- Gradientes e sombras para profundidade
-
-## 🏗️ Estrutura do Projeto
+## 🏗️ Estrutura
 
 ```
 src/
-├── app/
-│   ├── layout.tsx          # Layout principal
-│   ├── page.tsx            # Página inicial
-│   └── globals.css         # Estilos globais
-├── components/
-│   ├── groups.tsx          # Componente dos grupos
-│   ├── matches.tsx         # Componente dos jogos
-│   ├── bracket.tsx         # Componente do chaveamento
-│   ├── prizes.tsx          # Componente da premiação
-│   ├── rules.tsx           # Componente das regras
-│   └── sponsors.tsx        # Componente dos patrocinadores
-├── data/
-│   └── tournament.json     # Dados mockados do torneio
-├── styles/
-│   └── tokens.css          # Variáveis CSS personalizadas
-└── types/
-    └── tournament.ts       # Tipos TypeScript
+├── app/                 # App Router (Next.js 15)
+├── components/          # Componentes React
+├── data/               # Dados do torneio (JSON)
+├── styles/             # Estilos globais
+└── types/              # Definições TypeScript
 ```
 
-## 🚀 Como Executar
+## 🎯 Como Atualizar o Torneio
 
-### Pré-requisitos
-- Node.js 18+ 
-- Yarn
+### Método Simples (Recomendado)
 
-### Instalação
-```bash
-# Clone o repositório
-git clone <url-do-repositorio>
-cd camp_volei
+1. **Edite o arquivo JSON**:
+   ```bash
+   # Abra o arquivo de dados
+   nano src/data/tournament.json
+   ```
 
-# Instale as dependências
-yarn install
+2. **Execute o script de atualização**:
+   ```bash
+   ./update-tournament.sh
+   ```
 
-# Execute o projeto
-yarn dev
-```
+### Método Manual
 
-O projeto estará disponível em `http://localhost:3000`
+1. **Edite os dados**:
+   - Abra `src/data/tournament.json`
+   - Atualize resultados, classificações, etc.
 
-## 📊 Dados do Torneio
+2. **Faça o build**:
+   ```bash
+   yarn build
+   ```
 
-### Estrutura
-- **8 duplas** divididas em **2 grupos de 4**
-- **12 jogos** na fase de grupos
-- **4 jogos** no chaveamento eliminatório
+3. **Deploy**:
+   ```bash
+   vercel --prod
+   ```
+
+## 📝 Estrutura dos Dados
 
 ### Grupos
-- **Grupo A (Azul)**: Saulo & Jadi, Wagner & Emílio, Diogo & Jonatan, Caio & Cadu
-- **Grupo B (Laranja)**: Jorge & Jaque, Daniel & Alan, João & José, Cezar & Karen
+```json
+{
+  "groups": [
+    {
+      "id": "A",
+      "color": "blue",
+      "teams": [
+        {"id": 1, "name": "Saulo & Jadi"},
+        {"id": 2, "name": "Wagner & Emílio"}
+      ]
+    }
+  ]
+}
+```
 
-### Sistema de Pontuação
-- Set único de 15 pontos
-- Final até 18 pontos
-- A partir de 17x17, precisa abrir 2 de vantagem
-- Troca de lado a cada 9 pontos
+### Jogos
+```json
+{
+  "schedule": [
+    {
+      "game": 1,
+      "home": 1,
+      "away": 2,
+      "homeScore": 21,
+      "awayScore": 18,
+      "status": "completed"
+    }
+  ]
+}
+```
 
-## 🎯 Deploy
+### Chaveamento
+```json
+{
+  "bracket": {
+    "SF1": {"home": "A#1", "away": "B#2"},
+    "SF2": {"home": "B#1", "away": "A#2"},
+    "ThirdPlace": {"home": "loser(SF1)", "away": "loser(SF2)"},
+    "Final": {"home": "winner(SF1)", "away": "winner(SF2)"}
+  }
+}
+```
 
-O projeto está configurado para deploy no Vercel:
+## 🎨 Personalização
 
-1. Conecte o repositório ao Vercel
-2. Configure as variáveis de ambiente (se necessário)
-3. Deploy automático a cada push na branch main
+### Cores
+Edite `src/styles/tokens.css`:
+```css
+:root {
+  --primary: #379EC8;      /* Azul claro */
+  --secondary: #244157;    /* Azul escuro */
+  --accent: #F2C15C;       /* Dourado */
+}
+```
 
-## 🎨 Paleta de Cores
+### Logo
+Substitua `public/logo.jpeg` pela sua logo.
 
-- **Primário**: `#379EC8` (azul claro)
-- **Primário Escuro**: `#092A50` (azul escuro)
-- **Secundário**: `#145178` (azul marinho)
-- **Destaque**: `#F2C15C` (dourado)
-- **Fundo**: `#FFFFFF` (branco)
-- **Texto**: `#0F1E2B` (azul escuro)
+### Patrocinadores
+Adicione imagens em `public/img/patrocinadores/` e atualize o JSON.
+
+## 🚀 Deploy
+
+### Vercel (Recomendado)
+```bash
+# Instalar Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel --prod
+```
+
+### Netlify
+```bash
+# Build
+yarn build
+
+# Deploy pasta .next
+```
 
 ## 📱 Responsividade
 
-- **Mobile First**: Design otimizado para dispositivos móveis
-- **Breakpoints**: sm (640px), md (768px), lg (1024px), xl (1280px)
-- **Navegação**: Menu horizontal com scroll em dispositivos pequenos
-- **Cards**: Layout em grid responsivo
+- **Mobile**: 1-2 colunas
+- **Tablet**: 2-3 colunas  
+- **Desktop**: 3-5 colunas
+- **Breakpoints**: sm, md, lg, xl
 
 ## 🔧 Scripts Disponíveis
 
 ```bash
-yarn dev          # Executa em modo desenvolvimento
-yarn build        # Gera build de produção
-yarn start        # Executa build de produção
-yarn lint         # Executa linter
+# Desenvolvimento
+yarn dev
+
+# Build
+yarn build
+
+# Atualizar torneio
+./update-tournament.sh
+
+# Deploy
+vercel --prod
 ```
 
 ## 📄 Licença
 
-Este projeto é propriedade da Escola de Beach Vôlei Professor Cezar.
-
----
-
-Desenvolvido com ❤️ para o esporte e a comunidade de beach vôlei.
+MIT License - Projeto educacional

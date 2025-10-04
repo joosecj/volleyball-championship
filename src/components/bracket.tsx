@@ -6,6 +6,7 @@ import { Bracket, BracketMatch } from '@/types/tournament';
 
 interface BracketProps {
   bracket: Bracket;
+  onUpdateBracketResult?: (matchKey: keyof Bracket, homeScore: number, awayScore: number) => void;
 }
 
 function getMatchIcon(matchKey: string) {

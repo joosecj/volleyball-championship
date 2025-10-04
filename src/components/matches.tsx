@@ -6,7 +6,7 @@ import { Match, Group } from '@/types/tournament';
 
 interface MatchesProps {
   matches: Match[];
-  teams: Group[];
+  groups: Group[];
 }
 
 function getTeamName(teamId: number, groups: Group[]): string {
@@ -47,7 +47,7 @@ function getStatusText(status: string) {
   }
 }
 
-export function Matches({ matches, teams }: MatchesProps) {
+export function Matches({ matches, groups }: MatchesProps) {
 
   return (
     <div className="space-y-6">
@@ -68,8 +68,8 @@ export function Matches({ matches, teams }: MatchesProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {matches.map((match, index) => {
           const status = getMatchStatus(match);
-          const homeTeam = getTeamName(match.home, teams);
-          const awayTeam = getTeamName(match.away, teams);
+          const homeTeam = getTeamName(match.home, groups);
+          const awayTeam = getTeamName(match.away, groups);
           
           return (
             <motion.div

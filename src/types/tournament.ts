@@ -7,6 +7,7 @@ export interface Group {
   id: string;
   color: 'blue' | 'orange';
   teams: Team[];
+  isFinished?: boolean;
 }
 
 export interface Match {
@@ -16,6 +17,10 @@ export interface Match {
   homeScore?: number;
   awayScore?: number;
   status?: 'pending' | 'completed' | 'in-progress';
+  homeSets?: number;
+  awaySets?: number;
+  homePoints?: number;
+  awayPoints?: number;
 }
 
 export interface BracketMatch {

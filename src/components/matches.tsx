@@ -2,15 +2,16 @@
 
 import { motion } from 'framer-motion';
 import { Clock, CheckCircle, PlayCircle } from 'lucide-react';
-import { Match, Team } from '@/types/tournament';
+import { Match, Group } from '@/types/tournament';
 
 interface MatchesProps {
   matches: Match[];
-  teams: Team[];
+  teams: Group[];
 }
 
-function getTeamName(teamId: number, teams: Team[]): string {
-  const team = teams.find(t => t.id === teamId);
+function getTeamName(teamId: number, groups: Group[]): string {
+  const allTeams = groups.flatMap(group => group.teams);
+  const team = allTeams.find(t => t.id === teamId);
   return team?.name || `Time ${teamId}`;
 }
 
@@ -47,7 +48,6 @@ function getStatusText(status: string) {
 }
 
 export function Matches({ matches, teams }: MatchesProps) {
-  const allTeams = teams.flatMap(group => group.teams);
 
   return (
     <div className="space-y-6">
@@ -68,8 +68,8 @@ export function Matches({ matches, teams }: MatchesProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {matches.map((match, index) => {
           const status = getMatchStatus(match);
-          const homeTeam = getTeamName(match.home, allTeams);
-          const awayTeam = getTeamName(match.away, allTeams);
+          const homeTeam = getTeamName(match.home, teams);
+          const awayTeam = getTeamName(match.away, teams);
           
           return (
             <motion.div

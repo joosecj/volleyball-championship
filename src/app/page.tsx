@@ -26,8 +26,6 @@ const navigationItems = [
 export default function Home() {
   const [activeSection, setActiveSection] = useState('groups');
 
-  const allTeams = tournament.groups.flatMap(group => group.teams);
-
   const renderSection = () => {
     switch (activeSection) {
       case 'groups':

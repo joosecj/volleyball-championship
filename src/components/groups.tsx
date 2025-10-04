@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Trophy, Users } from 'lucide-react';
-import { Group, Team } from '@/types/tournament';
+import { Group } from '@/types/tournament';
 
 interface GroupsProps {
   groups: Group[];
@@ -60,7 +60,7 @@ export function Groups({ groups }: GroupsProps) {
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {groups.map((group, groupIndex) => {
+        {groups.map((group) => {
           const standings = calculateStandings(group);
           const groupColor = group.color === 'blue' ? 'var(--group-blue)' : 'var(--group-orange)';
           
@@ -69,7 +69,7 @@ export function Groups({ groups }: GroupsProps) {
               key={group.id}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: groupIndex * 0.2 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               className="bg-white rounded-xl shadow-lg overflow-hidden"
             >
               {/* Header */}
@@ -86,26 +86,26 @@ export function Groups({ groups }: GroupsProps) {
               {/* Standings */}
               <div className="p-4">
                 <div className="space-y-3">
-                  {standings.map((standing, index) => (
+                  {standings.map((standing) => (
                     <motion.div
                       key={standing.teamId}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      transition={{ duration: 0.4, delay: 0.1 }}
                       className={`flex items-center justify-between p-3 rounded-lg ${
-                        index === 0 ? 'bg-yellow-50 border-2 border-yellow-200' : 'bg-gray-50'
+                        standings.indexOf(standing) === 0 ? 'bg-yellow-50 border-2 border-yellow-200' : 'bg-gray-50'
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                          index === 0 ? 'bg-yellow-400 text-white' : 'bg-gray-200 text-gray-600'
+                          standings.indexOf(standing) === 0 ? 'bg-yellow-400 text-white' : 'bg-gray-200 text-gray-600'
                         }`}>
-                          {index + 1}
+                          {standings.indexOf(standing) + 1}
                         </div>
                         <span className="font-medium text-[var(--text-dark)]">
                           {standing.teamName}
                         </span>
-                        {index === 0 && <Trophy className="w-4 h-4 text-yellow-500" />}
+                        {standings.indexOf(standing) === 0 && <Trophy className="w-4 h-4 text-yellow-500" />}
                       </div>
                       
                       <div className="text-right text-sm">

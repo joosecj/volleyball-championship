@@ -9,6 +9,7 @@ import { BracketComponent } from '@/components/bracket';
 import { Prizes } from '@/components/prizes';
 import { Sponsors } from '@/components/sponsors';
 import { Rules } from '@/components/rules';
+import { Countdown } from '@/components/countdown';
 import tournamentData from '@/data/tournament.json';
 import { Tournament } from '@/types/tournament';
 
@@ -25,6 +26,11 @@ const navigationItems = [
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('groups');
+  
+  // Data do torneio: amanhã às 9h da manhã
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(9, 0, 0, 0);
 
   const renderSection = () => {
     switch (activeSection) {
@@ -56,12 +62,10 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-[var(--text-dark)] mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-[var(--text-dark)] mb-6">
               🏐 {tournament.event}
             </h1>
-            <p className="text-[var(--text-light)] text-lg">
-              Acompanhe o torneio em tempo real
-            </p>
+            <Countdown targetDate={tomorrow} />
           </div>
         </div>
       </motion.header>

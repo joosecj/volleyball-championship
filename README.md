@@ -62,6 +62,108 @@ src/
    vercel --prod
    ```
 
+## ⚽ Como Adicionar Vitórias e Resultados
+
+### 1. Atualizar Resultados dos Jogos
+
+Para cada jogo finalizado, edite a seção `schedule` no `tournament.json`:
+
+```json
+{
+  "schedule": [
+    {
+      "game": 1,
+      "home": 1,           // ID do time da casa
+      "away": 2,           // ID do time visitante
+      "homeScore": 21,     // Pontos do time da casa
+      "awayScore": 18,     // Pontos do time visitante
+      "status": "completed" // Status: "pending", "in-progress", "completed"
+    }
+  ]
+}
+```
+
+### 2. Atualizar Classificações dos Grupos
+
+Após cada jogo, atualize as vitórias/derrotas na seção `standings`:
+
+```json
+{
+  "groups": [
+    {
+      "id": "A",
+      "color": "blue",
+      "teams": [...],
+      "standings": [
+        {
+          "teamId": 1,
+          "teamName": "Saulo & Jadi",
+          "wins": 2,        // Número de vitórias
+          "losses": 1       // Número de derrotas
+        },
+        {
+          "teamId": 2,
+          "teamName": "Wagner & Emílio",
+          "wins": 1,
+          "losses": 2
+        }
+      ]
+    }
+  ]
+}
+```
+
+### 3. Exemplo Prático
+
+**Jogo 1: Saulo & Jadi (21) vs Wagner & Emílio (18)**
+
+1. **Atualizar o jogo**:
+   ```json
+   {
+     "game": 1,
+     "home": 1,
+     "away": 2,
+     "homeScore": 21,
+     "awayScore": 18,
+     "status": "completed"
+   }
+   ```
+
+2. **Atualizar as classificações**:
+   ```json
+   "standings": [
+     {
+       "teamId": 1,
+       "teamName": "Saulo & Jadi",
+       "wins": 1,    // +1 vitória
+       "losses": 0
+     },
+     {
+       "teamId": 2,
+       "teamName": "Wagner & Emílio",
+       "wins": 0,
+       "losses": 1   // +1 derrota
+     }
+   ]
+   ```
+
+### 4. Regras de Classificação
+
+- **Os 2 primeiros de cada grupo avançam** para as semifinais
+- **Critério de desempate**: Número de vitórias
+- **Times classificados** aparecem destacados em amarelo
+- **Troféu** indica times que avançam
+
+### 5. Fluxo de Atualização
+
+1. **Durante o jogo**: `status: "in-progress"`
+2. **Após o jogo**: 
+   - Atualize `homeScore` e `awayScore`
+   - Mude `status` para `"completed"`
+   - Atualize `wins`/`losses` dos times
+3. **Execute o script**: `./update-tournament.sh`
+4. **Deploy automático** (se configurado)
+
 ## 📝 Estrutura dos Dados
 
 ### Grupos

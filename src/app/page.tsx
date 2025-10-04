@@ -189,7 +189,7 @@ export default function Home() {
 
           <div className="border-t border-white/20 mt-8 pt-6">
             <p className="text-sm opacity-75">
-              © 2024 Escola de Beach Vôlei Professor Cezar. Todos os direitos reservados.<br />Feito por <a href="https://github.com/joosecj" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-yellow-300 hover:text-yellow-200 transition-colors"><Rocket className="w-4 h-4" /> José Carlos</a>
+              © 2025 Escola de Beach Vôlei Professor Cezar. Todos os direitos reservados.<br />Feito por <a href="https://github.com/joosecj" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-yellow-300 hover:text-yellow-200 transition-colors"><Rocket className="w-4 h-4" /> José Carlos</a>
             </p>
           </div>
         </div>

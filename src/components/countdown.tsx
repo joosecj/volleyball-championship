@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Clock } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Clock } from "lucide-react";
 
 interface CountdownProps {
   targetDate: Date;
@@ -30,18 +30,25 @@ const calculateTimeLeft = (targetDate: Date): TimeLeft => {
   return timeLeft;
 };
 
-const formatTime = (num: number) => String(num).padStart(2, '0');
+const formatTime = (num: number) => String(num).padStart(2, "0");
 
 export function Countdown({ targetDate }: CountdownProps) {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft(targetDate));
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(
+    calculateTimeLeft(targetDate)
+  );
   const [isExpired, setIsExpired] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
       const newTimeLeft = calculateTimeLeft(targetDate);
       setTimeLeft(newTimeLeft);
-      
-      if (newTimeLeft.days === 0 && newTimeLeft.hours === 0 && newTimeLeft.minutes === 0 && newTimeLeft.seconds === 0) {
+
+      if (
+        newTimeLeft.days === 0 &&
+        newTimeLeft.hours === 0 &&
+        newTimeLeft.minutes === 0 &&
+        newTimeLeft.seconds === 0
+      ) {
         setIsExpired(true);
         clearInterval(timer);
       }
@@ -58,20 +65,28 @@ export function Countdown({ targetDate }: CountdownProps) {
         className="text-center"
       >
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-semibold">
-          <Clock className="w-4 h-4" />
-          O torneio já começou!
+          <Clock className="w-4 h-4" />O torneio já começou!
         </div>
       </motion.div>
     );
   }
 
-  // Filtrar unidades de tempo que não são zero (ou dias se for zero)
   const timeUnits = [
-    { value: timeLeft.days, label: 'Dia', plural: 'Dias', show: timeLeft.days > 0 },
-    { value: timeLeft.hours, label: 'Hora', plural: 'Horas', show: true },
-    { value: timeLeft.minutes, label: 'Minuto', plural: 'Minutos', show: true },
-    { value: timeLeft.seconds, label: 'Segundo', plural: 'Segundos', show: true },
-  ].filter(unit => unit.show);
+    {
+      value: timeLeft.days,
+      label: "Dia",
+      plural: "Dias",
+      show: timeLeft.days > 0,
+    },
+    { value: timeLeft.hours, label: "Hora", plural: "Horas", show: true },
+    { value: timeLeft.minutes, label: "Minuto", plural: "Minutos", show: true },
+    {
+      value: timeLeft.seconds,
+      label: "Segundo",
+      plural: "Segundos",
+      show: true,
+    },
+  ].filter((unit) => unit.show);
 
   return (
     <motion.div
@@ -86,7 +101,7 @@ export function Countdown({ targetDate }: CountdownProps) {
           Acompanhe o torneio em tempo real
         </span>
       </div>
-      
+
       <div className="flex justify-center gap-4 flex-wrap">
         {timeUnits.map((unit, index) => (
           <motion.div
@@ -105,9 +120,11 @@ export function Countdown({ targetDate }: CountdownProps) {
           </motion.div>
         ))}
       </div>
-      
+
       <div className="mt-4 text-sm text-[var(--text-light)]">
-        {timeLeft.days > 0 ? 'até o início do torneio' : 'restam para o início do torneio'}
+        {timeLeft.days > 0
+          ? "até o início do torneio"
+          : "restam para o início do torneio"}
       </div>
     </motion.div>
   );

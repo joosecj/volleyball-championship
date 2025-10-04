@@ -12,7 +12,7 @@ export interface GroupStanding {
 
 export interface Group {
   id: string;
-  color: 'blue' | 'orange';
+  color: "blue" | "orange";
   teams: Team[];
   standings: GroupStanding[];
   isFinished?: boolean;
@@ -24,7 +24,7 @@ export interface Match {
   away: number;
   homeScore?: number | null;
   awayScore?: number | null;
-  status?: 'pending' | 'completed' | 'in-progress';
+  status?: "pending" | "completed" | "in-progress";
   homeSets?: number;
   awaySets?: number;
   homePoints?: number;
@@ -36,7 +36,7 @@ export interface BracketMatch {
   away: string;
   homeScore?: number | null;
   awayScore?: number | null;
-  status?: 'pending' | 'completed' | 'in-progress';
+  status?: "pending" | "completed" | "in-progress";
 }
 
 export interface Bracket {

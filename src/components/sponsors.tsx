@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Heart, ExternalLink, Instagram } from 'lucide-react';
-import Image from 'next/image';
-import { Sponsor } from '@/types/tournament';
+import { motion } from "framer-motion";
+import { Heart, ExternalLink, Instagram } from "lucide-react";
+import Image from "next/image";
+import { Sponsor } from "@/types/tournament";
 
 interface SponsorsProps {
   sponsors: Sponsor[];
@@ -26,7 +26,6 @@ export function Sponsors({ sponsors }: SponsorsProps) {
         </p>
       </motion.div>
 
-      {/* Sponsors Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
         {sponsors.map((sponsor, index) => (
           <motion.div
@@ -48,7 +47,6 @@ export function Sponsors({ sponsors }: SponsorsProps) {
                 />
               </div>
 
-              {/* Sponsor Name */}
               <div className="text-center">
                 <h3 className="font-semibold text-[var(--text-dark)] mb-1 text-sm sm:text-base">
                   {sponsor.name}
@@ -63,7 +61,6 @@ export function Sponsors({ sponsors }: SponsorsProps) {
         ))}
       </div>
 
-      {/* Become a Sponsor */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -79,7 +76,12 @@ export function Sponsors({ sponsors }: SponsorsProps) {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => window.open('https://www.instagram.com/professordevolei_cezar?igsh=ZTliNmpnNnZqa3dr', '_blank')}
+          onClick={() =>
+            window.open(
+              "https://www.instagram.com/professordevolei_cezar?igsh=ZTliNmpnNnZqa3dr",
+              "_blank"
+            )
+          }
           className="inline-flex items-center gap-2 bg-gray-200 text-[var(--primary)] px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
         >
           <Instagram className="w-4 h-4" />

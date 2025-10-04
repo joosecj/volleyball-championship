@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Trophy, Medal, Crown, Gift } from 'lucide-react';
-import { Prize } from '@/types/tournament';
+import { motion } from "framer-motion";
+import { Trophy, Medal, Crown, Gift } from "lucide-react";
+import { Prize } from "@/types/tournament";
 
 interface PrizesProps {
   prizes: Prize[];
@@ -24,49 +24,59 @@ function getPrizeIcon(place: number) {
 function getPrizeColor(place: number) {
   switch (place) {
     case 1:
-      return 'from-yellow-400 to-yellow-600';
+      return "from-yellow-400 to-yellow-600";
     case 2:
-      return 'from-gray-300 to-gray-500';
+      return "from-gray-300 to-gray-500";
     case 3:
-      return 'from-amber-500 to-amber-700';
+      return "from-amber-500 to-amber-700";
     default:
-      return 'from-[var(--primary)] to-[var(--secondary)]';
+      return "from-[var(--primary)] to-[var(--secondary)]";
   }
 }
 
 function PrizeCard({ prize }: { prize: Prize }) {
   return (
-    <div className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 ${
-      prize.place === 1 ? 'ring-2 ring-yellow-400 ring-opacity-50' : ''
-    }`}>
-      {/* Prize Image */}
+    <div
+      className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 ${
+        prize.place === 1 ? "ring-2 ring-yellow-400 ring-opacity-50" : ""
+      }`}
+    >
       <div className="h-32 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
         <div className="text-center">
           {getPrizeIcon(prize.place)}
           <div className="mt-1 text-xs text-[var(--text-light)]">
-            {prize.place === 1 ? 'Troféu' : prize.place === 2 ? 'Medalha Prata' : 'Medalha Bronze'}
+            {prize.place === 1
+              ? "Troféu"
+              : prize.place === 2
+              ? "Medalha Prata"
+              : "Medalha Bronze"}
           </div>
         </div>
       </div>
 
-      {/* Prize Info */}
       <div className="p-4">
         <div className="text-center">
-          <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-white font-semibold text-sm mb-2 bg-gradient-to-r ${getPrizeColor(prize.place)}`}>
+          <div
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-white font-semibold text-sm mb-2 bg-gradient-to-r ${getPrizeColor(
+              prize.place
+            )}`}
+          >
             {getPrizeIcon(prize.place)}
             {prize.title}
           </div>
-          
+
           {prize.subtitle && (
             <p className="text-sm text-[var(--text-light)] mb-3">
               {prize.subtitle}
             </p>
           )}
-          
-          {/* Lista de prêmios */}
+
           <div className="space-y-1">
             {prize.prizes.map((prizeItem, prizeIndex) => (
-              <div key={prizeIndex} className="text-sm text-[var(--text-dark)] bg-gray-50 rounded-lg p-2">
+              <div
+                key={prizeIndex}
+                className="text-sm text-[var(--text-dark)] bg-gray-50 rounded-lg p-2"
+              >
                 {prizeItem}
               </div>
             ))}
@@ -74,7 +84,6 @@ function PrizeCard({ prize }: { prize: Prize }) {
         </div>
       </div>
 
-      {/* Decorative Elements */}
       {prize.place === 1 && (
         <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
           <span className="text-white font-bold text-sm">★</span>
@@ -118,10 +127,8 @@ export function Prizes({ prizes }: PrizesProps) {
           ))}
         </div>
 
-        {/* Desktop: Layout de pódio */}
         <div className="hidden md:block">
           <div className="flex items-end justify-center gap-3 max-w-6xl mx-auto">
-            {/* 2º Lugar - Esquerda (mais baixo) */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -131,7 +138,6 @@ export function Prizes({ prizes }: PrizesProps) {
               <PrizeCard prize={prizes[1]} />
             </motion.div>
 
-            {/* 1º Lugar - Centro (mais alto) */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -141,7 +147,6 @@ export function Prizes({ prizes }: PrizesProps) {
               <PrizeCard prize={prizes[0]} />
             </motion.div>
 
-            {/* 3º Lugar - Direita (mais baixo) */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -154,7 +159,6 @@ export function Prizes({ prizes }: PrizesProps) {
         </div>
       </div>
 
-      {/* Additional Info */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -166,7 +170,8 @@ export function Prizes({ prizes }: PrizesProps) {
           🎉 Todos os Participantes Ganham!
         </h3>
         <p className="text-sm opacity-90">
-          Além dos prêmios principais, todos os participantes recebem certificado de participação e lembranças do torneio.
+          Além dos prêmios principais, todos os participantes recebem
+          certificado de participação e lembranças do torneio.
         </p>
       </motion.div>
     </div>

@@ -1,30 +1,44 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { MapPin, Navigation, ExternalLink, Clock, Car, Wifi } from 'lucide-react';
+import { motion } from "framer-motion";
+import {
+  MapPin,
+  Navigation,
+  ExternalLink,
+  Clock,
+  Car,
+  Wifi,
+} from "lucide-react";
 
 export function Location() {
-  const address = "R. Cel. Francisco Soares, 1345 - Centro, Nova Iguaçu - RJ, 26216-041";
+  const address =
+    "R. Cel. Francisco Soares, 1345 - Centro, Nova Iguaçu - RJ, 26216-041";
   const venue = "Local Atrena Portuga";
-  
+
   // Obter a chave da API do Google Maps da variável de ambiente
   const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  
+
   // URLs para diferentes apps de navegação
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    address
+  )}`;
   const wazeUrl = `https://waze.com/ul?q=${encodeURIComponent(address)}`;
-  const appleMapsUrl = `https://maps.apple.com/?q=${encodeURIComponent(address)}`;
+  const appleMapsUrl = `https://maps.apple.com/?q=${encodeURIComponent(
+    address
+  )}`;
 
   const openInMaps = (url: string) => {
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   // Função para gerar URL do mapa
   const getMapUrl = () => {
     // Por enquanto, sempre usar o mapa básico que funciona sem chave
     // Quando você tiver uma chave válida, descomente a linha abaixo e comente a atual
-    return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.123456789!2d-43.451234567!3d-22.7654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDQ1JzU1LjYiUyA0M8KwMjcnMDQuNCJX!5e0!3m2!1spt-BR!2sbr!4v1234567890123!5m2!1spt-BR!2sbr&q=${encodeURIComponent(address)}`;
-    
+    return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.123456789!2d-43.451234567!3d-22.7654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDQ1JzU1LjYiUyA0M8KwMjcnMDQuNCJX!5e0!3m2!1spt-BR!2sbr!4v1234567890123!5m2!1spt-BR!2sbr&q=${encodeURIComponent(
+      address
+    )}`;
+
     // Para usar com chave da API (quando tiver uma válida):
     // if (googleMapsApiKey && googleMapsApiKey !== 'sua_chave_aqui') {
     //   return `https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey}&q=${encodeURIComponent(address)}`;
@@ -81,7 +95,7 @@ export function Location() {
             <Navigation className="w-4 h-4" />
             Google Maps
           </motion.button>
-          
+
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -91,7 +105,7 @@ export function Location() {
             <Car className="w-4 h-4" />
             Waze
           </motion.button>
-          
+
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -120,7 +134,7 @@ export function Location() {
             </span>
           </h3>
         </div>
-        
+
         <div className="relative">
           <iframe
             src={getMapUrl()}
@@ -132,7 +146,7 @@ export function Location() {
             referrerPolicy="no-referrer-when-downgrade"
             className="w-full h-80"
           />
-          
+
           <div className="absolute top-4 right-4">
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -146,7 +160,6 @@ export function Location() {
           </div>
         </div>
       </motion.div>
-
     </div>
   );
 }

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Clock, CheckCircle, PlayCircle } from 'lucide-react';
-import { Match, Group } from '@/types/tournament';
-import { getMatchStatus } from '@/utils/tournament';
+import { motion } from "framer-motion";
+import { Clock, CheckCircle, PlayCircle } from "lucide-react";
+import { Match, Group } from "@/types/tournament";
+import { getMatchStatus } from "@/utils/tournament";
 
 interface MatchesProps {
   matches: Match[];
@@ -11,17 +11,16 @@ interface MatchesProps {
 }
 
 function getTeamName(teamId: number, groups: Group[]): string {
-  const allTeams = groups.flatMap(group => group.teams);
-  const team = allTeams.find(t => t.id === teamId);
+  const allTeams = groups.flatMap((group) => group.teams);
+  const team = allTeams.find((t) => t.id === teamId);
   return team?.name || `Time ${teamId}`;
 }
 
-
 function getStatusIcon(status: string) {
   switch (status) {
-    case 'completed':
+    case "completed":
       return <CheckCircle className="w-4 h-4 text-green-500" />;
-    case 'in-progress':
+    case "in-progress":
       return <PlayCircle className="w-4 h-4 text-blue-500" />;
     default:
       return <Clock className="w-4 h-4 text-gray-400" />;
@@ -30,17 +29,16 @@ function getStatusIcon(status: string) {
 
 function getStatusText(status: string) {
   switch (status) {
-    case 'completed':
-      return 'Finalizado';
-    case 'in-progress':
-      return 'Em andamento';
+    case "completed":
+      return "Finalizado";
+    case "in-progress":
+      return "Em andamento";
     default:
-      return 'Agendado';
+      return "Agendado";
   }
 }
 
 export function Matches({ matches, groups }: MatchesProps) {
-
   return (
     <div className="space-y-6">
       <motion.div
@@ -62,7 +60,7 @@ export function Matches({ matches, groups }: MatchesProps) {
           const status = getMatchStatus(match);
           const homeTeam = getTeamName(match.home, groups);
           const awayTeam = getTeamName(match.away, groups);
-          
+
           return (
             <motion.div
               key={match.game}
@@ -92,7 +90,8 @@ export function Matches({ matches, groups }: MatchesProps) {
                     {homeTeam}
                   </span>
                   <div className="w-12 text-center">
-                    {match.homeScore !== null && match.homeScore !== undefined ? (
+                    {match.homeScore !== null &&
+                    match.homeScore !== undefined ? (
                       <span className="text-lg font-bold text-[var(--primary)]">
                         {match.homeScore}
                       </span>
@@ -104,7 +103,9 @@ export function Matches({ matches, groups }: MatchesProps) {
 
                 {/* VS */}
                 <div className="text-center">
-                  <span className="text-xs text-[var(--text-light)] font-medium">VS</span>
+                  <span className="text-xs text-[var(--text-light)] font-medium">
+                    VS
+                  </span>
                 </div>
 
                 {/* Away Team */}
@@ -113,7 +114,8 @@ export function Matches({ matches, groups }: MatchesProps) {
                     {awayTeam}
                   </span>
                   <div className="w-12 text-center">
-                    {match.awayScore !== null && match.awayScore !== undefined ? (
+                    {match.awayScore !== null &&
+                    match.awayScore !== undefined ? (
                       <span className="text-lg font-bold text-[var(--primary)]">
                         {match.awayScore}
                       </span>
@@ -125,23 +127,29 @@ export function Matches({ matches, groups }: MatchesProps) {
               </div>
 
               {/* Match Result */}
-              {status === 'completed' && match.homeScore !== null && match.awayScore !== null && match.homeScore !== undefined && match.awayScore !== undefined && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="mt-3 pt-3 border-t border-gray-100"
-                >
-                  <div className="text-center">
-                    <span className="text-sm font-semibold text-[var(--text-dark)]">
-                      {match.homeScore > match.awayScore ? homeTeam : awayTeam}
-                    </span>
-                    <span className="text-xs text-[var(--text-light)] ml-1">
-                      venceu
-                    </span>
-                  </div>
-                </motion.div>
-              )}
+              {status === "completed" &&
+                match.homeScore !== null &&
+                match.awayScore !== null &&
+                match.homeScore !== undefined &&
+                match.awayScore !== undefined && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-3 pt-3 border-t border-gray-100"
+                  >
+                    <div className="text-center">
+                      <span className="text-sm font-semibold text-[var(--text-dark)]">
+                        {match.homeScore > match.awayScore
+                          ? homeTeam
+                          : awayTeam}
+                      </span>
+                      <span className="text-xs text-[var(--text-light)] ml-1">
+                        venceu
+                      </span>
+                    </div>
+                  </motion.div>
+                )}
             </motion.div>
           );
         })}

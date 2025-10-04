@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Heart, ExternalLink } from 'lucide-react';
+import { Heart, ExternalLink, Instagram } from 'lucide-react';
 import Image from 'next/image';
 import { Sponsor } from '@/types/tournament';
 
@@ -37,6 +37,7 @@ export function Sponsors({ sponsors }: SponsorsProps) {
             className="group"
           >
             <div className="bg-white rounded-lg shadow-md p-3 sm:p-6 hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-[var(--primary)]">
+              {/* Sponsor Logo */}
               <div className="aspect-square bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-105 transition-transform duration-300 p-2 sm:p-4">
                 <Image
                   src={sponsor.logo}
@@ -47,6 +48,7 @@ export function Sponsors({ sponsors }: SponsorsProps) {
                 />
               </div>
 
+              {/* Sponsor Name */}
               <div className="text-center">
                 <h3 className="font-semibold text-[var(--text-dark)] mb-1 text-sm sm:text-base">
                   {sponsor.name}
@@ -61,6 +63,7 @@ export function Sponsors({ sponsors }: SponsorsProps) {
         ))}
       </div>
 
+      {/* Become a Sponsor */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -76,13 +79,15 @@ export function Sponsors({ sponsors }: SponsorsProps) {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={() => window.open('https://www.instagram.com/professordevolei_cezar?igsh=ZTliNmpnNnZqa3dr', '_blank')}
           className="inline-flex items-center gap-2 bg-gray-200 text-[var(--primary)] px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
         >
-          <ExternalLink className="w-4 h-4" />
+          <Instagram className="w-4 h-4" />
           Saiba Mais
         </motion.button>
       </motion.div>
 
+      {/* Thank You Message */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

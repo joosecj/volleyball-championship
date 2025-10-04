@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Trophy, Users, Calendar, Award, Heart, Camera, MapPin, Rocket } from 'lucide-react';
+import { Trophy, Users, Calendar, Award, Heart, Camera, MapPin, Rocket, Instagram } from 'lucide-react';
 import Image from 'next/image';
 import { Groups } from '@/components/groups';
 import { Matches } from '@/components/matches';
@@ -179,11 +179,21 @@ export default function Home() {
             </div>
 
             {/* Contact */}
+            {/* Contact */}
             <div>
               <h3 className="font-semibold text-lg mb-3">📞 Contato</h3>
-              <p className="text-sm opacity-90">
+              <p className="text-sm opacity-90 mb-3">
                 Para dúvidas sobre o torneio, entre em contato com a organização.
               </p>
+              <a
+                href="https://www.instagram.com/professordevolei_cezar?igsh=ZTliNmpnNnZqa3dr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors"
+              >
+                <Instagram className="w-4 h-4" />
+                @professordevolei_cezar
+              </a>
             </div>
           </div>
 

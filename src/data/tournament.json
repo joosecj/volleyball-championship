@@ -17,10 +17,10 @@
         {"id": 4, "name": "Caio & Cadu"}
       ],
       "standings": [
-        {"teamId": 1, "teamName": "Saulo & Jadi", "wins": 3, "losses": 0},
-        {"teamId": 2, "teamName": "Wagner & Emílio", "wins": 2, "losses": 1},
-        {"teamId": 3, "teamName": "Diogo & Jonatan", "wins": 1, "losses": 2},
-        {"teamId": 4, "teamName": "Caio & Cadu", "wins": 0, "losses": 3}
+        {"teamId": 1, "teamName": "Saulo & Jadi", "wins": 0, "losses": 0},
+        {"teamId": 2, "teamName": "Wagner & Emílio", "wins": 0, "losses": 0},
+        {"teamId": 3, "teamName": "Diogo & Jonatan", "wins": 0, "losses": 0},
+        {"teamId": 4, "teamName": "Caio & Cadu", "wins": 0, "losses": 0}
       ]
     },
     {
@@ -33,16 +33,16 @@
         {"id": 8, "name": "Cezar & Karen"}
       ],
       "standings": [
-        {"teamId": 5, "teamName": "Jorge & Jaque", "wins": 2, "losses": 1},
-        {"teamId": 6, "teamName": "Daniel & Alan", "wins": 3, "losses": 0},
-        {"teamId": 7, "teamName": "João & José", "wins": 1, "losses": 2},
-        {"teamId": 8, "teamName": "Cezar & Karen", "wins": 0, "losses": 3}
+        {"teamId": 5, "teamName": "Jorge & Jaque", "wins": 0, "losses": 0},
+        {"teamId": 6, "teamName": "Daniel & Alan", "wins": 0, "losses": 0},
+        {"teamId": 7, "teamName": "João & José", "wins": 0, "losses": 0},
+        {"teamId": 8, "teamName": "Cezar & Karen", "wins": 0, "losses": 0}
       ]
     }
   ],
   "schedule": [
-    {"game": 1, "home": 1, "away": 2, "homeScore": 21, "awayScore": 18, "status": "completed"},
-    {"game": 2, "home": 5, "away": 6, "homeScore": 19, "awayScore": 21, "status": "completed"},
+    {"game": 1, "home": 1, "away": 2, "homeScore": null, "awayScore": null, "status": "pending"},
+    {"game": 2, "home": 5, "away": 6, "homeScore": null, "awayScore": null, "status": "pending"},
     {"game": 3, "home": 3, "away": 4, "homeScore": null, "awayScore": null, "status": "pending"},
     {"game": 4, "home": 7, "away": 8, "homeScore": null, "awayScore": null, "status": "pending"},
     {"game": 5, "home": 1, "away": 3, "homeScore": null, "awayScore": null, "status": "pending"},
@@ -55,7 +55,7 @@
     {"game": 12, "home": 6, "away": 7, "homeScore": null, "awayScore": null, "status": "pending"}
   ],
   "bracket": {
-    "SF1": {"home": "A#1", "away": "B#2", "homeScore": 21, "awayScore": 18, "status": "completed"},
+    "SF1": {"home": "A#1", "away": "B#2", "homeScore": null, "awayScore": null, "status": "pending"},
     "SF2": {"home": "B#1", "away": "A#2", "homeScore": null, "awayScore": null, "status": "pending"},
     "ThirdPlace": {"home": "loser(SF1)", "away": "loser(SF2)", "homeScore": null, "awayScore": null, "status": "pending"},
     "Final": {"home": "winner(SF1)", "away": "winner(SF2)", "homeScore": null, "awayScore": null, "status": "pending"}

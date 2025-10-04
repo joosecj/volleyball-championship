@@ -1,0 +1,69 @@
+{
+  "event": "Torneio de Duplas – Escola de Beach Vôlei Professor Cezar",
+  "rules": {
+    "setPoints": 18,
+    "advantageFrom": 17,
+    "sideSwitchEvery": 9,
+    "tiebreakers": ["wins", "headToHead", "pointDiff"]
+  },
+  "groups": [
+    {
+      "id": "A",
+      "color": "blue",
+      "teams": [
+        {"id": 1, "name": "Saulo & Jadi"},
+        {"id": 2, "name": "Wagner & Emílio"},
+        {"id": 3, "name": "Diogo & Jonatan"},
+        {"id": 4, "name": "Caio & Cadu"}
+      ]
+    },
+    {
+      "id": "B",
+      "color": "orange",
+      "teams": [
+        {"id": 5, "name": "Jorge & Jaque"},
+        {"id": 6, "name": "Daniel & Alan"},
+        {"id": 7, "name": "João & José"},
+        {"id": 8, "name": "Cezar & Karen"}
+      ]
+    }
+  ],
+  "schedule": [
+    {"game": 1, "home": 1, "away": 2},
+    {"game": 2, "home": 5, "away": 6},
+    {"game": 3, "home": 3, "away": 4},
+    {"game": 4, "home": 7, "away": 8},
+    {"game": 5, "home": 1, "away": 3},
+    {"game": 6, "home": 5, "away": 7},
+    {"game": 7, "home": 2, "away": 4},
+    {"game": 8, "home": 6, "away": 8},
+    {"game": 9, "home": 1, "away": 4},
+    {"game": 10, "home": 5, "away": 8},
+    {"game": 11, "home": 2, "away": 3},
+    {"game": 12, "home": 6, "away": 7}
+  ],
+  "bracket": {
+    "SF1": {"home": "A#1", "away": "B#2"},
+    "SF2": {"home": "B#1", "away": "A#2"},
+    "ThirdPlace": {"home": "loser(SF1)", "away": "loser(SF2)"},
+    "Final": {"home": "winner(SF1)", "away": "winner(SF2)"}
+  },
+  "prizes": [
+    {"place": 1, "title": "Kit smartwatch + fones", "image": "/img/premio-relogio-fones.png"},
+    {"place": 2, "title": "Óculos esportivo", "image": "/img/premio-oculos.png"},
+    {"place": 3, "title": "Medalhas", "image": "/img/premio-medalha.png"}
+  ],
+  "sponsors": [
+    {"name": "Patrocinador 1", "logo": "/img/patrocinadores/p1.png"},
+    {"name": "Patrocinador 2", "logo": "/img/patrocinadores/p2.png"},
+    {"name": "Patrocinador 3", "logo": "/img/patrocinadores/p3.png"}
+  ],
+  "gallery": {
+    "provider": "Day Silva Photo",
+    "url": "https://banlek.com/daysilvaphoto",
+    "pricing": {
+      "single": 13.5,
+      "fromTwo": 10.0
+    }
+  }
+}

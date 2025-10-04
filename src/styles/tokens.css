@@ -1,0 +1,45 @@
+/* Tokens de Cores - Torneio de Duplas */
+:root {
+  /* Cores Primárias */
+  --primary: #379EC8;
+  --primary-light: #5CBADB;
+  --primary-dark: #092A50;
+  
+  /* Cores Secundárias */
+  --secondary: #145178;
+  
+  /* Cores de Destaque */
+  --accent: #F2C15C;
+  
+  /* Cores Neutras */
+  --background: #FFFFFF;
+  --text-dark: #0F1E2B;
+  --text-light: #6B7280;
+  
+  /* Cores dos Grupos */
+  --group-blue: #379EC8;
+  --group-orange: #F59E0B;
+  
+  /* Cores de Status */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  
+  /* Sombras */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  
+  /* Bordas */
+  --border-radius: 0.5rem;
+  --border-radius-lg: 0.75rem;
+  --border-radius-xl: 1rem;
+  
+  /* Espaçamentos */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+}

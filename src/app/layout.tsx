@@ -17,7 +17,11 @@ export const metadata: Metadata = {
   description: "Acompanhe o torneio de duplas de beach vôlei da Escola Professor Cezar. Grupos, jogos, chaveamento e premiação em tempo real.",
   keywords: "beach vôlei, torneio, duplas, esporte, Professor Cezar",
   authors: [{ name: "Escola de Beach Vôlei Professor Cezar" }],
-  viewport: "width=device-width, initial-scale=1",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
   themeColor: "#379EC8",
 };
 

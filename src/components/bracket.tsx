@@ -2,11 +2,38 @@
 
 import { motion } from 'framer-motion';
 import { Trophy, Medal, Crown } from 'lucide-react';
-import { Bracket, BracketMatch } from '@/types/tournament';
+import { Bracket, BracketMatch, Group } from '@/types/tournament';
 
 interface BracketProps {
   bracket: Bracket;
-  onUpdateBracketResult?: (matchKey: keyof Bracket, homeScore: number, awayScore: number) => void;
+  groups: Group[];
+}
+
+// Função para obter os times classificados de cada grupo
+function getQualifiedTeams(groups: Group[]) {
+  const qualifiedTeams: { [key: string]: string } = {};
+  
+  groups.forEach(group => {
+    // Ordena por vitórias (descendente)
+    const sortedStandings = [...group.standings].sort((a, b) => b.wins - a.wins);
+    
+    // 1º e 2º colocados
+    qualifiedTeams[`${group.id}#1`] = sortedStandings[0]?.teamName || `1º Grupo ${group.id}`;
+    qualifiedTeams[`${group.id}#2`] = sortedStandings[1]?.teamName || `2º Grupo ${group.id}`;
+  });
+  
+  return qualifiedTeams;
+}
+
+// Função para resolver os nomes dos times no chaveamento
+function resolveTeamName(teamRef: string, qualifiedTeams: { [key: string]: string }): string {
+  // Se já é um nome de time (não uma referência), retorna como está
+  if (!teamRef.includes('#')) {
+    return teamRef;
+  }
+  
+  // Resolve referências como "A#1", "B#2", etc.
+  return qualifiedTeams[teamRef] || teamRef;
 }
 
 function getMatchIcon(matchKey: string) {
@@ -52,10 +79,14 @@ function getMatchColor(matchKey: string) {
   }
 }
 
-function BracketMatchCard({ match, matchKey }: { match: BracketMatch; matchKey: string }) {
+function BracketMatchCard({ match, matchKey, qualifiedTeams }: { match: BracketMatch; matchKey: string; qualifiedTeams: { [key: string]: string } }) {
   const status = match.status || 'pending';
   const isCompleted = status === 'completed';
   const isInProgress = status === 'in-progress';
+  
+  // Resolve os nomes dos times
+  const homeTeamName = resolveTeamName(match.home, qualifiedTeams);
+  const awayTeamName = resolveTeamName(match.away, qualifiedTeams);
   
   return (
     <motion.div
@@ -81,71 +112,58 @@ function BracketMatchCard({ match, matchKey }: { match: BracketMatch; matchKey: 
       </div>
 
       {/* Teams */}
-      <div className="space-y-3">
-        {/* Home Team */}
-        <div className="flex items-center justify-between">
-          <span className="font-medium text-[var(--text-dark)] truncate flex-1">
-            {match.home}
-          </span>
-          <div className="w-12 text-center">
-            {match.homeScore !== undefined ? (
-              <span className="text-lg font-bold text-[var(--primary)]">
-                {match.homeScore}
-              </span>
-            ) : (
-              <span className="text-gray-400">-</span>
-            )}
-          </div>
-        </div>
-
-        {/* VS */}
-        <div className="text-center">
-          <span className="text-xs text-[var(--text-light)] font-medium">VS</span>
-        </div>
-
-        {/* Away Team */}
-        <div className="flex items-center justify-between">
-          <span className="font-medium text-[var(--text-dark)] truncate flex-1">
-            {match.away}
-          </span>
-          <div className="w-12 text-center">
-            {match.awayScore !== undefined ? (
-              <span className="text-lg font-bold text-[var(--primary)]">
-                {match.awayScore}
-              </span>
-            ) : (
-              <span className="text-gray-400">-</span>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Winner */}
-      {isCompleted && match.homeScore !== undefined && match.awayScore !== undefined && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
-          className="mt-4 pt-3 border-t border-gray-100"
-        >
-          <div className="text-center">
-            <div className="flex items-center justify-center gap-2">
-              <Trophy className="w-4 h-4 text-yellow-500" />
-              <span className="font-semibold text-[var(--text-dark)]">
-                {match.homeScore > match.awayScore ? match.home : match.away}
-              </span>
-            </div>
-            <span className="text-xs text-[var(--text-light)]">
-              venceu
+      {isCompleted ? (
+        /* Jogo Finalizado - Mostra apenas o vencedor */
+        <div className="text-center py-4">
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <Trophy className="w-6 h-6 text-yellow-500" />
+            <span className="text-xl font-bold text-[var(--text-dark)]">
+              {match.homeScore > match.awayScore ? homeTeamName : awayTeamName}
             </span>
           </div>
-        </motion.div>
+          <div className="text-sm text-[var(--text-light)]">
+            Vencedor
+          </div>
+          <div className="mt-2 text-lg font-semibold text-[var(--primary)]">
+            {match.homeScore} - {match.awayScore}
+          </div>
+        </div>
+      ) : (
+        /* Jogo Pendente - Mostra VS */
+        <div className="space-y-3">
+          {/* Home Team */}
+          <div className="flex items-center justify-between">
+            <span className="font-medium text-[var(--text-dark)] truncate flex-1">
+              {homeTeamName}
+            </span>
+            <div className="w-12 text-center">
+              <span className="text-gray-400">-</span>
+            </div>
+          </div>
+
+          {/* VS */}
+          <div className="text-center">
+            <span className="text-xs text-[var(--text-light)] font-medium">VS</span>
+          </div>
+
+          {/* Away Team */}
+          <div className="flex items-center justify-between">
+            <span className="font-medium text-[var(--text-dark)] truncate flex-1">
+              {awayTeamName}
+            </span>
+            <div className="w-12 text-center">
+              <span className="text-gray-400">-</span>
+            </div>
+          </div>
+        </div>
       )}
+
     </motion.div>
   );
 }
 
-export function BracketComponent({ bracket }: BracketProps) {
+export function BracketComponent({ bracket, groups }: BracketProps) {
+  const qualifiedTeams = getQualifiedTeams(groups);
   const bracketMatches = Object.entries(bracket);
 
   return (
@@ -173,7 +191,7 @@ export function BracketComponent({ bracket }: BracketProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.2 }}
           >
-            <BracketMatchCard match={match} matchKey={matchKey} />
+            <BracketMatchCard match={match} matchKey={matchKey} qualifiedTeams={qualifiedTeams} />
           </motion.div>
         ))}
       </div>
@@ -187,7 +205,7 @@ export function BracketComponent({ bracket }: BracketProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: (index + 2) * 0.2 }}
           >
-            <BracketMatchCard match={match} matchKey={matchKey} />
+            <BracketMatchCard match={match} matchKey={matchKey} qualifiedTeams={qualifiedTeams} />
           </motion.div>
         ))}
       </div>

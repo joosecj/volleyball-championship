@@ -39,7 +39,7 @@ export default function Home() {
       case 'matches':
         return <Matches matches={tournament.schedule} groups={tournament.groups} />;
       case 'bracket':
-        return <BracketComponent bracket={tournament.bracket} />;
+        return <BracketComponent bracket={tournament.bracket} groups={tournament.groups} />;
       case 'prizes':
         return <Prizes prizes={tournament.prizes} />;
       case 'rules':

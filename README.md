@@ -154,7 +154,37 @@ Após cada jogo, atualize as vitórias/derrotas na seção `standings`:
 - **Times classificados** aparecem destacados em amarelo
 - **Troféu** indica times que avançam
 
-### 5. Fluxo de Atualização
+### 5. Atualizar Jogos do Chaveamento
+
+Para jogos do chaveamento, edite a seção `bracket` no `tournament.json`:
+
+```json
+{
+  "bracket": {
+    "SF1": {
+      "home": "A#1", 
+      "away": "B#2", 
+      "homeScore": 21, 
+      "awayScore": 18, 
+      "status": "completed"
+    },
+    "SF2": {
+      "home": "B#1", 
+      "away": "A#2", 
+      "homeScore": null, 
+      "awayScore": null, 
+      "status": "pending"
+    }
+  }
+}
+```
+
+**Status possíveis:**
+- `"pending"`: Jogo agendado (mostra VS)
+- `"in-progress"`: Jogo em andamento
+- `"completed"`: Jogo finalizado (mostra vencedor)
+
+### 6. Fluxo de Atualização
 
 1. **Durante o jogo**: `status: "in-progress"`
 2. **Após o jogo**: 

@@ -7,6 +7,9 @@ export function Location() {
   const address = "R. Cel. Francisco Soares, 1345 - Centro, Nova Iguaçu - RJ, 26216-041";
   const venue = "Local Atrena Portuga";
   
+  // Obter a chave da API do Google Maps da variável de ambiente
+  const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  
   // URLs para diferentes apps de navegação
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
   const wazeUrl = `https://waze.com/ul?q=${encodeURIComponent(address)}`;
@@ -14,6 +17,20 @@ export function Location() {
 
   const openInMaps = (url: string) => {
     window.open(url, '_blank');
+  };
+
+  // Função para gerar URL do mapa
+  const getMapUrl = () => {
+    // Por enquanto, sempre usar o mapa básico que funciona sem chave
+    // Quando você tiver uma chave válida, descomente a linha abaixo e comente a atual
+    return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.123456789!2d-43.451234567!3d-22.7654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDQ1JzU1LjYiUyA0M8KwMjcnMDQuNCJX!5e0!3m2!1spt-BR!2sbr!4v1234567890123!5m2!1spt-BR!2sbr&q=${encodeURIComponent(address)}`;
+    
+    // Para usar com chave da API (quando tiver uma válida):
+    // if (googleMapsApiKey && googleMapsApiKey !== 'sua_chave_aqui') {
+    //   return `https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey}&q=${encodeURIComponent(address)}`;
+    // } else {
+    //   return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.123456789!2d-43.451234567!3d-22.7654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDQ1JzU1LjYiUyA0M8KwMjcnMDQuNCJX!5e0!3m2!1spt-BR!2sbr!4v1234567890123!5m2!1spt-BR!2sbr&q=${encodeURIComponent(address)}`;
+    // }
   };
 
   return (
@@ -98,12 +115,15 @@ export function Location() {
           <h3 className="text-lg font-semibold text-[var(--text-dark)] flex items-center gap-2">
             <MapPin className="w-5 h-5 text-[var(--primary)]" />
             Mapa do Local
+            <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full ml-2">
+              Mapa Básico
+            </span>
           </h3>
         </div>
         
         <div className="relative">
           <iframe
-            src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dOWWgUjqUaU&q=${encodeURIComponent(address)}`}
+            src={getMapUrl()}
             width="100%"
             height="300"
             style={{ border: 0 }}
@@ -113,7 +133,6 @@ export function Location() {
             className="w-full h-80"
           />
           
-          {/* Overlay com botão para abrir no app */}
           <div className="absolute top-4 right-4">
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -128,81 +147,6 @@ export function Location() {
         </div>
       </motion.div>
 
-      {/* Informações Adicionais */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.6 }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
-      >
-        {/* Horário de Funcionamento */}
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-green-500 p-2 rounded-lg">
-              <Clock className="w-5 h-5 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-[var(--text-dark)]">
-              Horário do Torneio
-            </h3>
-          </div>
-          <div className="space-y-2 text-[var(--text-light)]">
-            <p><strong>Início:</strong> 09:00</p>
-            <p><strong>Previsão de término:</strong> 18:00</p>
-            <p className="text-sm text-gray-500 mt-2">
-              Chegue com 30 minutos de antecedência para check-in
-            </p>
-          </div>
-        </div>
-
-        {/* Informações do Local */}
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-blue-500 p-2 rounded-lg">
-              <Wifi className="w-5 h-5 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-[var(--text-dark)]">
-              Informações do Local
-            </h3>
-          </div>
-          <div className="space-y-2 text-[var(--text-light)]">
-            <p><strong>Estacionamento:</strong> Disponível no local</p>
-            <p><strong>Wi-Fi:</strong> Gratuito</p>
-            <p><strong>Vestiários:</strong> Disponíveis</p>
-            <p><strong>Área de descanso:</strong> Sim</p>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Dicas de Chegada */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
-        className="bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] rounded-xl p-6 text-white"
-      >
-        <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          <Navigation className="w-5 h-5" />
-          💡 Dicas para Chegar
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-          <div>
-            <p className="font-semibold mb-2">🚗 De Carro:</p>
-            <ul className="space-y-1 opacity-90">
-              <li>• Estacionamento gratuito no local</li>
-              <li>• Acesso fácil pela R. Cel. Francisco Soares</li>
-              <li>• Sinalização do evento na entrada</li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold mb-2">🚌 Transporte Público:</p>
-            <ul className="space-y-1 opacity-90">
-              <li>• Ônibus para o Centro de Nova Iguaçu</li>
-              <li>• Estação de trem próxima</li>
-              <li>• Uber/Taxi disponível na região</li>
-            </ul>
-          </div>
-        </div>
-      </motion.div>
     </div>
   );
 }

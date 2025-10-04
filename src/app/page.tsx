@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Trophy, Users, Calendar, Award, Heart, Camera } from 'lucide-react';
+import { Trophy, Users, Calendar, Award, Heart, Camera, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import { Groups } from '@/components/groups';
 import { Matches } from '@/components/matches';
@@ -10,6 +10,7 @@ import { BracketComponent } from '@/components/bracket';
 import { Prizes } from '@/components/prizes';
 import { Sponsors } from '@/components/sponsors';
 import { Rules } from '@/components/rules';
+import { Location } from '@/components/location';
 import { Countdown } from '@/components/countdown';
 import tournamentData from '@/data/tournament.json';
 import { Tournament } from '@/types/tournament';
@@ -23,6 +24,7 @@ const navigationItems = [
   { id: 'prizes', label: 'Premiação', icon: <Award className="w-5 h-5" /> },
   { id: 'rules', label: 'Regras', icon: <Heart className="w-5 h-5" /> },
   { id: 'sponsors', label: 'Patrocinadores', icon: <Camera className="w-5 h-5" /> },
+  { id: 'location', label: 'Localização', icon: <MapPin className="w-5 h-5" /> },
 ];
 
 export default function Home() {
@@ -46,6 +48,8 @@ export default function Home() {
         return <Rules rules={tournament.rules} />;
       case 'sponsors':
         return <Sponsors sponsors={tournament.sponsors} />;
+      case 'location':
+        return <Location />;
       default:
         return <Groups groups={tournament.groups} />;
     }

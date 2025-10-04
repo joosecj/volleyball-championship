@@ -3,10 +3,18 @@ export interface Team {
   name: string;
 }
 
+export interface GroupStanding {
+  teamId: number;
+  teamName: string;
+  wins: number;
+  losses: number;
+}
+
 export interface Group {
   id: string;
   color: 'blue' | 'orange';
   teams: Team[];
+  standings: GroupStanding[];
   isFinished?: boolean;
 }
 

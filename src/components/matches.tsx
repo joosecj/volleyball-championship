@@ -50,7 +50,7 @@ export function Matches({ matches, groups }: MatchesProps) {
         className="text-center"
       >
         <h2 className="text-2xl font-bold text-[var(--text-dark)] mb-2">
-          ⚽ Jogos da Fase de Grupos
+          🏐 Jogos da Fase de Grupos
         </h2>
         <p className="text-[var(--text-light)]">
           12 jogos - todos contra todos dentro de cada grupo

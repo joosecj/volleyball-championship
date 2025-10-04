@@ -1,12 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Trophy, Medal, Crown } from 'lucide-react';
-import { Bracket, BracketMatch, Group } from '@/types/tournament';
+import { Trophy, Medal, Crown, Lock } from 'lucide-react';
+import { Bracket, BracketMatch, Group, Tournament } from '@/types/tournament';
+import { areAllGroupMatchesCompleted, getMatchStatus } from '@/utils/tournament';
 
 interface BracketProps {
   bracket: Bracket;
   groups: Group[];
+  tournament: Tournament;
 }
 
 // Função para obter os times classificados de cada grupo
@@ -26,13 +28,26 @@ function getQualifiedTeams(groups: Group[]) {
 }
 
 // Função para resolver os nomes dos times no chaveamento
-function resolveTeamName(teamRef: string, qualifiedTeams: { [key: string]: string }): string {
+function resolveTeamName(teamRef: string, qualifiedTeams: { [key: string]: string }, allGroupMatchesCompleted: boolean): string {
   // Se já é um nome de time (não uma referência), retorna como está
-  if (!teamRef.includes('#')) {
+  if (!teamRef.includes('#') && !teamRef.includes('winner') && !teamRef.includes('loser')) {
     return teamRef;
   }
   
-  // Resolve referências como "A#1", "B#2", etc.
+  // Se os jogos de grupo não terminaram, mostra placeholders didáticos
+  if (!allGroupMatchesCompleted) {
+    if (teamRef === 'A#1') return '1º do Grupo A';
+    if (teamRef === 'A#2') return '2º do Grupo A';
+    if (teamRef === 'B#1') return '1º do Grupo B';
+    if (teamRef === 'B#2') return '2º do Grupo B';
+    if (teamRef === 'winner(SF1)') return 'Vencedor SF1';
+    if (teamRef === 'winner(SF2)') return 'Vencedor SF2';
+    if (teamRef === 'loser(SF1)') return 'Perdedor SF1';
+    if (teamRef === 'loser(SF2)') return 'Perdedor SF2';
+    return teamRef;
+  }
+  
+  // Se os jogos terminaram, resolve os nomes reais
   return qualifiedTeams[teamRef] || teamRef;
 }
 
@@ -79,14 +94,14 @@ function getMatchColor(matchKey: string) {
   }
 }
 
-function BracketMatchCard({ match, matchKey, qualifiedTeams }: { match: BracketMatch; matchKey: string; qualifiedTeams: { [key: string]: string } }) {
-  const status = match.status || 'pending';
+function BracketMatchCard({ match, matchKey, qualifiedTeams, allGroupMatchesCompleted }: { match: BracketMatch; matchKey: string; qualifiedTeams: { [key: string]: string }; allGroupMatchesCompleted: boolean }) {
+  const status = getMatchStatus(match);
   const isCompleted = status === 'completed';
   const isInProgress = status === 'in-progress';
   
   // Resolve os nomes dos times
-  const homeTeamName = resolveTeamName(match.home, qualifiedTeams);
-  const awayTeamName = resolveTeamName(match.away, qualifiedTeams);
+  const homeTeamName = resolveTeamName(match.home, qualifiedTeams, allGroupMatchesCompleted);
+  const awayTeamName = resolveTeamName(match.away, qualifiedTeams, allGroupMatchesCompleted);
   
   return (
     <motion.div
@@ -162,9 +177,10 @@ function BracketMatchCard({ match, matchKey, qualifiedTeams }: { match: BracketM
   );
 }
 
-export function BracketComponent({ bracket, groups }: BracketProps) {
+export function BracketComponent({ bracket, groups, tournament }: BracketProps) {
   const qualifiedTeams = getQualifiedTeams(groups);
   const bracketMatches = Object.entries(bracket);
+  const allGroupMatchesCompleted = areAllGroupMatchesCompleted(tournament);
 
   return (
     <div className="space-y-6">
@@ -182,6 +198,8 @@ export function BracketComponent({ bracket, groups }: BracketProps) {
         </p>
       </motion.div>
 
+      {/* Chaveamento - Sempre mostra, mas com placeholders didáticos */}
+
       {/* Semifinals */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {bracketMatches.slice(0, 2).map(([matchKey, match], index) => (
@@ -191,7 +209,7 @@ export function BracketComponent({ bracket, groups }: BracketProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.2 }}
           >
-            <BracketMatchCard match={match} matchKey={matchKey} qualifiedTeams={qualifiedTeams} />
+            <BracketMatchCard match={match} matchKey={matchKey} qualifiedTeams={qualifiedTeams} allGroupMatchesCompleted={allGroupMatchesCompleted} />
           </motion.div>
         ))}
       </div>
@@ -205,7 +223,7 @@ export function BracketComponent({ bracket, groups }: BracketProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: (index + 2) * 0.2 }}
           >
-            <BracketMatchCard match={match} matchKey={matchKey} qualifiedTeams={qualifiedTeams} />
+            <BracketMatchCard match={match} matchKey={matchKey} qualifiedTeams={qualifiedTeams} allGroupMatchesCompleted={allGroupMatchesCompleted} />
           </motion.div>
         ))}
       </div>

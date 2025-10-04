@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Clock, CheckCircle, PlayCircle } from 'lucide-react';
 import { Match, Group } from '@/types/tournament';
+import { getMatchStatus } from '@/utils/tournament';
 
 interface MatchesProps {
   matches: Match[];
@@ -15,15 +16,6 @@ function getTeamName(teamId: number, groups: Group[]): string {
   return team?.name || `Time ${teamId}`;
 }
 
-function getMatchStatus(match: Match): 'pending' | 'completed' | 'in-progress' {
-  if (match.status) {
-    return match.status;
-  }
-  if (match.homeScore !== null && match.awayScore !== null && match.homeScore !== undefined && match.awayScore !== undefined) {
-    return 'completed';
-  }
-  return 'pending';
-}
 
 function getStatusIcon(status: string) {
   switch (status) {

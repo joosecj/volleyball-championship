@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Trophy, Users, Calendar, Award, Heart, Camera } from 'lucide-react';
+import Image from 'next/image';
 import { Groups } from '@/components/groups';
 import { Matches } from '@/components/matches';
 import { BracketComponent } from '@/components/bracket';
@@ -27,7 +28,6 @@ const navigationItems = [
 export default function Home() {
   const [activeSection, setActiveSection] = useState('groups');
   
-  // Data do torneio: amanhã às 9h da manhã
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   tomorrow.setHours(9, 0, 0, 0);
@@ -52,19 +52,48 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[var(--primary-light)] to-[var(--primary)]">
+    <div className="min-h-screen bg-gradient-to-br from-[#244157] to-[#1a2f42]">
       {/* Header */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-white shadow-lg"
+        className="relative bg-gradient-to-b from-[#244157] via-[#2a4a5f] to-[#1a2f42] shadow-lg overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto px-4 py-6">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-10 left-10 w-20 h-20 bg-white rounded-full opacity-20"></div>
+          <div className="absolute top-20 right-20 w-16 h-16 bg-white rounded-full opacity-20"></div>
+          <div className="absolute bottom-10 left-1/4 w-12 h-12 bg-white rounded-full opacity-20"></div>
+          <div className="absolute bottom-20 right-1/3 w-8 h-8 bg-white rounded-full opacity-20"></div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 py-8 relative z-10">
           <div className="text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-[var(--text-dark)] mb-6">
-              🏐 {tournament.event}
-            </h1>
+            {/* Logo Container with Background */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="mb-8 relative flex justify-center items-center"
+            >
+              {/* Background Circle */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-80 h-80 md:w-96 md:h-96 bg-gradient-to-br from-white/10 to-[#244157]/30 rounded-full blur-2xl"></div>
+              </div>
+              
+              {/* Logo */}
+              <div className="relative z-10 p-4">
+                <Image
+                  src="/logo.jpeg"
+                  alt="Torneio de Duplas – Escola de Beach Vôlei Professor Cezar"
+                  width={300}
+                  height={300}
+                  className="mx-auto w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300"
+                  priority
+                />
+              </div>
+            </motion.div>
+            
             <Countdown targetDate={tomorrow} />
           </div>
         </div>

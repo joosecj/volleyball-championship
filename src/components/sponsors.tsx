@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Heart, ExternalLink } from 'lucide-react';
+import Image from 'next/image';
 import { Sponsor } from '@/types/tournament';
 
 interface SponsorsProps {
@@ -26,7 +27,7 @@ export function Sponsors({ sponsors }: SponsorsProps) {
       </motion.div>
 
       {/* Sponsors Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
         {sponsors.map((sponsor, index) => (
           <motion.div
             key={sponsor.name}
@@ -35,24 +36,21 @@ export function Sponsors({ sponsors }: SponsorsProps) {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className="group"
           >
-            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-[var(--primary)]">
-              {/* Sponsor Logo Placeholder */}
-              <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-300">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-[var(--primary)] rounded-lg flex items-center justify-center mx-auto mb-2">
-                    <span className="text-white font-bold text-lg">
-                      {sponsor.name.charAt(0)}
-                    </span>
-                  </div>
-                  <div className="text-xs text-[var(--text-light)]">
-                    Logo
-                  </div>
-                </div>
+            <div className="bg-white rounded-lg shadow-md p-3 sm:p-6 hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-[var(--primary)]">
+              {/* Sponsor Logo */}
+              <div className="aspect-square bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-105 transition-transform duration-300 p-2 sm:p-4">
+                <Image
+                  src={sponsor.logo}
+                  alt={`Logo ${sponsor.name}`}
+                  width={160}
+                  height={160}
+                  className="max-w-full max-h-full object-contain"
+                />
               </div>
 
               {/* Sponsor Name */}
               <div className="text-center">
-                <h3 className="font-semibold text-[var(--text-dark)] mb-1">
+                <h3 className="font-semibold text-[var(--text-dark)] mb-1 text-sm sm:text-base">
                   {sponsor.name}
                 </h3>
                 <div className="flex items-center justify-center gap-1 text-xs text-[var(--text-light)]">

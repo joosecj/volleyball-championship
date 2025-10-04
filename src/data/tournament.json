@@ -54,9 +54,11 @@
     {"place": 3, "title": "Medalhas", "image": "/img/premio-medalha.png"}
   ],
   "sponsors": [
-    {"name": "Patrocinador 1", "logo": "/img/patrocinadores/p1.png"},
-    {"name": "Patrocinador 2", "logo": "/img/patrocinadores/p2.png"},
-    {"name": "Patrocinador 3", "logo": "/img/patrocinadores/p3.png"}
+    {"name": "Cesar Personal", "logo": "/img/patrocinadores/cesar_personal.png"},
+    {"name": "Dr. Alan", "logo": "/img/patrocinadores/dr_alan.png"},
+    {"name": "Felicty", "logo": "/img/patrocinadores/felicty.png"},
+    {"name": "Lenancio", "logo": "/img/patrocinadores/lenancio.png"},
+    {"name": "Portuga Arena", "logo": "/img/patrocinadores/portuga_arena.png"}
   ],
   "gallery": {
     "provider": "Day Silva Photo",

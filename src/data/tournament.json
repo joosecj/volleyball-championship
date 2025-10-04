@@ -61,9 +61,35 @@
     "Final": {"home": "winner(SF1)", "away": "winner(SF2)", "homeScore": null, "awayScore": null, "status": "pending"}
   },
   "prizes": [
-    {"place": 1, "title": "Kit smartwatch + fones", "image": "/img/premio-relogio-fones.png"},
-    {"place": 2, "title": "Óculos esportivo", "image": "/img/premio-oculos.png"},
-    {"place": 3, "title": "Medalhas", "image": "/img/premio-medalha.png"}
+    {
+      "place": 1, 
+      "title": "🏆 CAMPEÃO", 
+      "subtitle": "Dupla Campeã",
+      "prizes": [
+        "🕶️ Óculos esportivos para cada atleta",
+        "🎧⌚ Kit smartwatch + fones",
+        "😁 Clareamento dental com Dr. Alan (sorteado)"
+      ],
+      "image": "/img/premio-trofeu.png"
+    },
+    {
+      "place": 2, 
+      "title": "🥈 2º LUGAR", 
+      "subtitle": "Vice-Campeão",
+      "prizes": [
+        "🏅 Medalhas para cada atleta"
+      ],
+      "image": "/img/premio-medalha-prata.png"
+    },
+    {
+      "place": 3, 
+      "title": "🥉 3º LUGAR", 
+      "subtitle": "Terceiro Colocado",
+      "prizes": [
+        "🏅 Medalhas para cada atleta"
+      ],
+      "image": "/img/premio-medalha-bronze.png"
+    }
   ],
   "sponsors": [
     {"name": "Cesar Personal", "logo": "/img/patrocinadores/cesar_personal.png"},

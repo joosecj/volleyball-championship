@@ -49,6 +49,8 @@ export interface Bracket {
 export interface Prize {
   place: number;
   title: string;
+  subtitle?: string;
+  prizes: string[];
   image: string;
 }
 

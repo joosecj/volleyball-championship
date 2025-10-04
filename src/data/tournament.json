@@ -41,8 +41,8 @@
     }
   ],
   "schedule": [
-    {"game": 1, "home": 1, "away": 2, "homeScore": null, "awayScore": null, "status": "pending"},
-    {"game": 2, "home": 5, "away": 6, "homeScore": null, "awayScore": null, "status": "pending"},
+    {"game": 1, "home": 1, "away": 2, "homeScore": 21, "awayScore": 18, "status": "completed"},
+    {"game": 2, "home": 5, "away": 6, "homeScore": 19, "awayScore": 21, "status": "completed"},
     {"game": 3, "home": 3, "away": 4, "homeScore": null, "awayScore": null, "status": "pending"},
     {"game": 4, "home": 7, "away": 8, "homeScore": null, "awayScore": null, "status": "pending"},
     {"game": 5, "home": 1, "away": 3, "homeScore": null, "awayScore": null, "status": "pending"},

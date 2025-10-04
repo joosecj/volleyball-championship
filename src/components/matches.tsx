@@ -16,11 +16,11 @@ function getTeamName(teamId: number, groups: Group[]): string {
 }
 
 function getMatchStatus(match: Match): 'pending' | 'completed' | 'in-progress' {
-  if (match.homeScore !== undefined && match.awayScore !== undefined) {
-    return 'completed';
+  if (match.status) {
+    return match.status;
   }
-  if (match.status === 'in-progress') {
-    return 'in-progress';
+  if (match.homeScore !== null && match.awayScore !== null && match.homeScore !== undefined && match.awayScore !== undefined) {
+    return 'completed';
   }
   return 'pending';
 }
@@ -100,7 +100,7 @@ export function Matches({ matches, groups }: MatchesProps) {
                     {homeTeam}
                   </span>
                   <div className="w-12 text-center">
-                    {match.homeScore !== undefined ? (
+                    {match.homeScore !== null && match.homeScore !== undefined ? (
                       <span className="text-lg font-bold text-[var(--primary)]">
                         {match.homeScore}
                       </span>
@@ -121,7 +121,7 @@ export function Matches({ matches, groups }: MatchesProps) {
                     {awayTeam}
                   </span>
                   <div className="w-12 text-center">
-                    {match.awayScore !== undefined ? (
+                    {match.awayScore !== null && match.awayScore !== undefined ? (
                       <span className="text-lg font-bold text-[var(--primary)]">
                         {match.awayScore}
                       </span>
@@ -133,7 +133,7 @@ export function Matches({ matches, groups }: MatchesProps) {
               </div>
 
               {/* Match Result */}
-              {status === 'completed' && match.homeScore !== undefined && match.awayScore !== undefined && (
+              {status === 'completed' && match.homeScore !== null && match.awayScore !== null && match.homeScore !== undefined && match.awayScore !== undefined && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}

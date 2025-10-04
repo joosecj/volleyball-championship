@@ -22,8 +22,8 @@ export interface Match {
   game: number;
   home: number;
   away: number;
-  homeScore?: number;
-  awayScore?: number;
+  homeScore?: number | null;
+  awayScore?: number | null;
   status?: 'pending' | 'completed' | 'in-progress';
   homeSets?: number;
   awaySets?: number;
@@ -34,8 +34,8 @@ export interface Match {
 export interface BracketMatch {
   home: string;
   away: string;
-  homeScore?: number;
-  awayScore?: number;
+  homeScore?: number | null;
+  awayScore?: number | null;
   status?: 'pending' | 'completed' | 'in-progress';
 }
 

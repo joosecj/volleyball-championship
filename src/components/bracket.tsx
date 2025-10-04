@@ -1,9 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Trophy, Medal, Crown, Lock } from 'lucide-react';
+import { Trophy, Medal, Crown, Clock, CheckCircle, PlayCircle } from 'lucide-react';
 import { Bracket, BracketMatch, Group, Tournament } from '@/types/tournament';
-import { areAllGroupMatchesCompleted, getMatchStatus } from '@/utils/tournament';
+import { areAllGroupMatchesCompleted, getBracketMatchStatus } from '@/utils/tournament';
 
 interface BracketProps {
   bracket: Bracket;
@@ -51,6 +51,28 @@ function resolveTeamName(teamRef: string, qualifiedTeams: { [key: string]: strin
   return qualifiedTeams[teamRef] || teamRef;
 }
 
+function getStatusIcon(status: string) {
+  switch (status) {
+    case 'completed':
+      return <CheckCircle className="w-4 h-4 text-green-500" />;
+    case 'in-progress':
+      return <PlayCircle className="w-4 h-4 text-blue-500" />;
+    default:
+      return <Clock className="w-4 h-4 text-gray-400" />;
+  }
+}
+
+function getStatusText(status: string) {
+  switch (status) {
+    case 'completed':
+      return 'Finalizado';
+    case 'in-progress':
+      return 'Em andamento';
+    default:
+      return 'Agendado';
+  }
+}
+
 function getMatchIcon(matchKey: string) {
   switch (matchKey) {
     case 'SF1':
@@ -80,24 +102,10 @@ function getMatchTitle(matchKey: string) {
   }
 }
 
-function getMatchColor(matchKey: string) {
-  switch (matchKey) {
-    case 'SF1':
-    case 'SF2':
-      return 'var(--primary)';
-    case 'ThirdPlace':
-      return 'var(--accent)';
-    case 'Final':
-      return 'var(--secondary)';
-    default:
-      return 'var(--primary)';
-  }
-}
 
 function BracketMatchCard({ match, matchKey, qualifiedTeams, allGroupMatchesCompleted }: { match: BracketMatch; matchKey: string; qualifiedTeams: { [key: string]: string }; allGroupMatchesCompleted: boolean }) {
-  const status = getMatchStatus(match);
+  const status = getBracketMatchStatus(match);
   const isCompleted = status === 'completed';
-  const isInProgress = status === 'in-progress';
   
   // Resolve os nomes dos times
   const homeTeamName = resolveTeamName(match.home, qualifiedTeams, allGroupMatchesCompleted);
@@ -118,11 +126,11 @@ function BracketMatchCard({ match, matchKey, qualifiedTeams, allGroupMatchesComp
             {getMatchTitle(matchKey)}
           </span>
         </div>
-        <div 
-          className="px-2 py-1 rounded-full text-xs font-medium text-white"
-          style={{ backgroundColor: getMatchColor(matchKey) }}
-        >
-          {isCompleted ? 'Finalizado' : isInProgress ? 'Em andamento' : 'Agendado'}
+        <div className="flex items-center gap-1">
+          {getStatusIcon(status)}
+          <span className="text-xs text-[var(--text-light)]">
+            {getStatusText(status)}
+          </span>
         </div>
       </div>
 
@@ -133,7 +141,7 @@ function BracketMatchCard({ match, matchKey, qualifiedTeams, allGroupMatchesComp
           <div className="flex items-center justify-center gap-3 mb-2">
             <Trophy className="w-6 h-6 text-yellow-500" />
             <span className="text-xl font-bold text-[var(--text-dark)]">
-              {match.homeScore > match.awayScore ? homeTeamName : awayTeamName}
+              {match.homeScore && match.awayScore && match.homeScore > match.awayScore ? homeTeamName : awayTeamName}
             </span>
           </div>
           <div className="text-sm text-[var(--text-light)]">

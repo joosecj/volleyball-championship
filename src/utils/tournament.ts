@@ -34,3 +34,14 @@ export function isMatchInProgress(match: Match): boolean {
 export function isMatchPending(match: Match): boolean {
   return getMatchStatus(match) === 'pending';
 }
+
+// Função para obter o status de um jogo do chaveamento (padronizada)
+export function getBracketMatchStatus(match: { homeScore?: number | null; awayScore?: number | null; status?: 'pending' | 'completed' | 'in-progress' }): 'pending' | 'completed' | 'in-progress' {
+  if (match.status) {
+    return match.status;
+  }
+  if (match.homeScore !== null && match.awayScore !== null && match.homeScore !== undefined && match.awayScore !== undefined) {
+    return 'completed';
+  }
+  return 'pending';
+}

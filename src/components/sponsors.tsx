@@ -79,7 +79,7 @@ export function Sponsors({ sponsors }: SponsorsProps) {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="inline-flex items-center gap-2 bg-white text-[var(--primary)] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+          className="inline-flex items-center gap-2 bg-gray-200 text-[var(--primary)] px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
         >
           <ExternalLink className="w-4 h-4" />
           Saiba Mais

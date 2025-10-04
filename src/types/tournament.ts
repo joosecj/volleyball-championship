@@ -68,11 +68,25 @@ export interface Gallery {
   };
 }
 
+export interface DetailedRule {
+  id: number;
+  title: string;
+  description: string;
+  allowed: string;
+  icon: string;
+}
+
 export interface TournamentRules {
   setPoints: number;
+  finalPoints: number;
+  regularSetPoints: number;
   advantageFrom: number;
-  sideSwitchEvery: number;
+  finalAdvantageFrom: number;
+  sideSwitchAt: number;
+  timeoutPerTeam: number;
+  timeoutDuration: number;
   tiebreakers: string[];
+  detailedRules: DetailedRule[];
 }
 
 export interface Tournament {

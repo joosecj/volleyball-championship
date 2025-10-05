@@ -68,12 +68,18 @@ export interface Gallery {
   };
 }
 
-export interface DetailedRule {
+export interface Rule {
   id: number;
   title: string;
   description: string;
-  allowed: string;
+  details: string;
   icon: string;
+  type: "info" | "prohibited" | "allowed";
+}
+
+export interface RuleSection {
+  title: string;
+  rules: Rule[];
 }
 
 export interface TournamentRules {
@@ -86,7 +92,10 @@ export interface TournamentRules {
   timeoutPerTeam: number;
   timeoutDuration: number;
   tiebreakers: string[];
-  detailedRules: DetailedRule[];
+  gameSystem: RuleSection;
+  prohibitedActions: RuleSection;
+  allowedActions: RuleSection;
+  generalRules: RuleSection;
 }
 
 export interface Tournament {

@@ -4,20 +4,112 @@ import { motion } from "framer-motion";
 import {
   CheckCircle,
   XCircle,
-  AlertTriangle,
+  Info,
   Users,
   Trophy,
   Clock,
+  AlertTriangle,
 } from "lucide-react";
-import { TournamentRules } from "@/types/tournament";
+import { TournamentRules, Rule } from "@/types/tournament";
 
 interface RulesProps {
   rules: TournamentRules;
 }
 
+function RuleCard({ rule, index }: { rule: Rule; index: number }) {
+  const getIcon = () => {
+    switch (rule.type) {
+      case "prohibited":
+        return <XCircle className="w-5 h-5 text-red-500" />;
+      case "allowed":
+        return <CheckCircle className="w-5 h-5 text-green-500" />;
+      case "info":
+        return <Info className="w-5 h-5 text-blue-500" />;
+      default:
+        return <Info className="w-5 h-5 text-gray-500" />;
+    }
+  };
+
+  const getCardStyle = () => {
+    switch (rule.type) {
+      case "prohibited":
+        return "border-l-4 border-red-500 bg-red-50";
+      case "allowed":
+        return "border-l-4 border-green-500 bg-green-50";
+      case "info":
+        return "border-l-4 border-blue-500 bg-blue-50";
+      default:
+        return "border-l-4 border-gray-500 bg-gray-50";
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 ${getCardStyle()}`}
+    >
+      <div className="p-4">
+        <div className="flex items-start gap-3">
+          <div className="flex-shrink-0 mt-1">
+            {getIcon()}
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-xl">{rule.icon}</span>
+              <h3 className="font-semibold text-[var(--text-dark)]">
+                {rule.title}
+              </h3>
+            </div>
+            <p className="text-sm text-[var(--text-dark)] font-medium mb-2">
+              {rule.description}
+            </p>
+            {rule.details && (
+              <p className="text-xs text-[var(--text-light)]">
+                {rule.details}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function RuleSection({ 
+  section, 
+  index 
+}: { 
+  section: { title: string; rules: Rule[] }; 
+  index: number 
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.2 }}
+      className="space-y-4"
+    >
+      <h3 className="text-xl font-bold text-[var(--text-dark)] mb-4 flex items-center gap-2">
+        {section.title}
+      </h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {section.rules.map((rule, ruleIndex) => (
+          <RuleCard 
+            key={rule.id} 
+            rule={rule} 
+            index={ruleIndex} 
+          />
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 export function Rules({ rules }: RulesProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -28,15 +120,16 @@ export function Rules({ rules }: RulesProps) {
           📋 Regras do Torneio
         </h2>
         <p className="text-[var(--text-light)]">
-          Conheça todas as regras e regulamentos atualizados
+          Conheça todas as regras e regulamentos organizados por categoria
         </p>
       </motion.div>
 
+      {/* Quick Info Cards */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
       >
         <div className="bg-white rounded-lg p-4 shadow-md text-center">
           <Trophy className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
@@ -64,9 +157,9 @@ export function Rules({ rules }: RulesProps) {
             Tempo Técnico
           </h3>
           <p className="text-xs text-[var(--text-light)]">
-            {rules.timeoutPerTeam} por dupla
+            {rules.timeoutPerTeam} pedido
             <br />
-            {rules.timeoutDuration}s cada
+            {rules.timeoutDuration}s de duração
           </p>
         </div>
         <div className="bg-white rounded-lg p-4 shadow-md text-center">
@@ -77,102 +170,45 @@ export function Rules({ rules }: RulesProps) {
           <p className="text-xs text-[var(--text-light)]">
             Colaborativa
             <br />
-            Fair play
+            Espírito esportivo
           </p>
         </div>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {rules.detailedRules.map((rule, index) => (
-          <motion.div
-            key={rule.id}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          >
-            <div className="px-6 py-4 bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white">
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">{rule.icon}</span>
-                <h3 className="font-semibold text-lg">{rule.title}</h3>
-              </div>
-            </div>
-
-            <div className="p-6 bg-gradient-to-r from-gray-50 to-gray-100">
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <XCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="text-gray-800 text-sm font-medium">
-                      {rule.description}
-                    </p>
-                  </div>
-                </div>
-
-                {rule.allowed && (
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-gray-800 text-sm">
-                        <span className="font-medium text-green-600">
-                          ✅ {rule.allowed}
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        ))}
+      {/* Rule Sections */}
+      <div className="space-y-8">
+        <RuleSection section={rules.gameSystem} index={0} />
+        <RuleSection section={rules.prohibitedActions} index={1} />
+        <RuleSection section={rules.allowedActions} index={2} />
+        <RuleSection section={rules.generalRules} index={3} />
       </div>
 
+      {/* Tiebreaker Info */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.8 }}
-        className="mt-8 p-6 bg-gradient-to-r from-[var(--accent)] to-[var(--primary)] rounded-xl text-white"
+        className="bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] rounded-xl p-6 text-white text-center"
       >
-        <div className="text-center">
-          <Trophy className="w-8 h-8 mx-auto mb-3" />
-          <h3 className="text-lg font-semibold mb-3">
-            🏆 Critérios de Classificação
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-            <div>
-              <span className="font-semibold">1º Critério:</span>
-              <br />
-              Número de vitórias
-            </div>
-            <div>
-              <span className="font-semibold">2º Critério:</span>
-              <br />
-              Confronto direto
-            </div>
-            <div>
-              <span className="font-semibold">3º Critério:</span>
-              <br />
-              Saldo de pontos
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1.0 }}
-        className="mt-6 p-6 bg-gradient-to-r from-[var(--secondary)] to-[var(--primary)] rounded-xl text-white"
-      >
-        <div className="text-center">
-          <AlertTriangle className="w-8 h-8 mx-auto mb-3" />
-          <h3 className="text-lg font-semibold mb-2">⚠️ Importante</h3>
-          <p className="text-sm opacity-90">
-            Em caso de dúvidas sobre as regras, consulte a organização do
-            torneio. O fair play e o respeito são fundamentais para o sucesso do
-            evento.
-          </p>
-        </div>
+        <h3 className="text-lg font-semibold mb-2">
+          🏆 Critérios de Desempate
+        </h3>
+        <p className="text-sm opacity-90">
+          {rules.tiebreakers
+            .map((tiebreaker) => {
+              switch (tiebreaker) {
+                case "wins":
+                  return "Número de vitórias";
+                case "headToHead":
+                  return "Confronto direto";
+                case "pointDiff":
+                  return "Diferença de pontos";
+                default:
+                  return tiebreaker;
+              }
+            })
+            .join(" → ")}
+        </p>
       </motion.div>
     </div>
   );

@@ -13,7 +13,7 @@ import {
 export function Location() {
   const address =
     "R. Cel. Francisco Soares, 1345 - Centro, Nova Iguaçu - RJ, 26216-041";
-  const venue = "Local Atrena Portuga";
+  const venue = "Local Arena Portuga";
 
   // Obter a chave da API do Google Maps da variável de ambiente
   const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;

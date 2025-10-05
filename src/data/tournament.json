@@ -10,78 +10,114 @@
     "timeoutPerTeam": 1,
     "timeoutDuration": 30,
     "tiebreakers": ["wins", "headToHead", "pointDiff"],
-    "detailedRules": [
-      {
-        "id": 1,
-        "title": "Bola de primeira",
-        "description": "Não é permitido passar de primeira de toque, intencional ou não.",
-        "allowed": "Permitido em: bloqueio, ataque, manchete, espalmada, crock e recuperação com um braço.",
-        "icon": "1️⃣"
-      },
-      {
-        "id": 2,
-        "title": "Pingar de ponta de dedo",
-        "description": "Proibido usar pontas dos dedos.",
-        "allowed": "Permitido apenas no bico de pato.",
-        "icon": "2️⃣"
-      },
-      {
-        "id": 3,
-        "title": "Toque de levantamento",
-        "description": "Permitido passar a bola para a quadra adversária na 2ª e 3ª bola, seja de frente ou de costas, desde que os ombros estejam perpendiculares à bola.",
-        "allowed": "Se a 2ª bola for passada de toque de forma acidental, a jogada poderá ser aceita ou não, de acordo com os critérios da arbitragem.",
-        "icon": "3️⃣"
-      },
-      {
-        "id": 4,
-        "title": "Saque",
-        "description": "Jogar a bola para o alto e pegá-la novamente é considerado duplo toque (falta). Pisar na linha de fundo ou dentro da quadra antes ou no momento do contato com a bola também é falta.",
-        "allowed": "O saque deve ser executado atrás da linha de fundo, com a bola batida de forma limpa (sem segurar ou empurrar).",
-        "icon": "4️⃣"
-      },
-      {
-        "id": 5,
-        "title": "Pontuação",
-        "description": "Set único: 15 pontos. Final: 18 pontos.",
-        "allowed": "Empate (14x14 ou 17x17 na final) → abrir 2 pontos de diferença para vencer.",
-        "icon": "5️⃣"
-      },
-      {
-        "id": 6,
-        "title": "Troca de lado",
-        "description": "A troca de lado da quadra será feita unicamente quando a primeira dupla atingir 9 pontos.",
-        "allowed": "",
-        "icon": "6️⃣"
-      },
-      {
-        "id": 7,
-        "title": "Tempo técnico",
-        "description": "Será permitido 1 pedido de tempo de 30 segundos por dupla em cada jogo.",
-        "allowed": "",
-        "icon": "7️⃣"
-      },
-      {
-        "id": 8,
-        "title": "Arbitragem colaborativa",
-        "description": "Todos cooperam no julgamento das jogadas. Espírito esportivo acima de tudo!",
-        "allowed": "",
-        "icon": "8️⃣"
-      },
-      {
-        "id": 9,
-        "title": "Bola fora",
-        "description": "Bola considerada fora se tocar teto, estruturas ou grades laterais, além dos limites da quadra.",
-        "allowed": "",
-        "icon": "9️⃣"
-      },
-      {
-        "id": 10,
-        "title": "Ações que valem pontuação",
-        "description": "Saque, manchete, ataque, bloqueio, espalmada, crock, e toque (na 2ª ou 3ª bola) quando os ombros estiverem perpendiculares à bola, seja de frente ou de costas.",
-        "allowed": "",
-        "icon": "🔟"
-      }
-    ]
+    "gameSystem": {
+      "title": "Sistema de Jogo",
+      "rules": [
+        {
+          "id": 1,
+          "title": "Pontuação",
+          "description": "Set único: 15 pontos | Final: 18 pontos",
+          "details": "Empate (14x14 ou 17x17 na final) → abrir 2 pontos de diferença para vencer",
+          "icon": "🏆",
+          "type": "info"
+        },
+        {
+          "id": 2,
+          "title": "Troca de Lado",
+          "description": "Aos 9 pontos",
+          "details": "Primeira dupla a atingir 9 pontos troca de lado da quadra",
+          "icon": "🔄",
+          "type": "info"
+        },
+        {
+          "id": 3,
+          "title": "Tempo Técnico",
+          "description": "1 pedido por dupla",
+          "details": "30 segundos de duração por pedido",
+          "icon": "⏱️",
+          "type": "info"
+        }
+      ]
+    },
+    "prohibitedActions": {
+      "title": "Ações Proibidas",
+      "rules": [
+        {
+          "id": 1,
+          "title": "Bola de Primeira",
+          "description": "Não é permitido passar de primeira de toque",
+          "details": "Intencional ou não - exceto em bloqueio, ataque, manchete, espalmada, crock e recuperação com um braço",
+          "icon": "❌",
+          "type": "prohibited"
+        },
+        {
+          "id": 2,
+          "title": "Pingar de Ponta de Dedo",
+          "description": "Proibido usar pontas dos dedos",
+          "details": "Exceto no bico de pato",
+          "icon": "👆",
+          "type": "prohibited"
+        },
+        {
+          "id": 3,
+          "title": "Saque Incorreto",
+          "description": "Duplo toque e pisar na linha",
+          "details": "Jogar a bola para o alto e pegá-la novamente é duplo toque. Pisar na linha de fundo ou dentro da quadra também é falta",
+          "icon": "🚫",
+          "type": "prohibited"
+        }
+      ]
+    },
+    "allowedActions": {
+      "title": "Ações Permitidas",
+      "rules": [
+        {
+          "id": 1,
+          "title": "Toque de Levantamento",
+          "description": "Passar a bola para quadra adversária",
+          "details": "Na 2ª e 3ª bola, de frente ou de costas, com ombros perpendiculares à bola",
+          "icon": "✅",
+          "type": "allowed"
+        },
+        {
+          "id": 2,
+          "title": "Saque Correto",
+          "description": "Executar atrás da linha de fundo",
+          "details": "Bola batida de forma limpa, sem segurar ou empurrar",
+          "icon": "🎯",
+          "type": "allowed"
+        },
+        {
+          "id": 3,
+          "title": "Ações que Valem Ponto",
+          "description": "Saque, manchete, ataque, bloqueio, espalmada, crock",
+          "details": "E toque na 2ª ou 3ª bola quando ombros estiverem perpendiculares à bola",
+          "icon": "🏐",
+          "type": "allowed"
+        }
+      ]
+    },
+    "generalRules": {
+      "title": "Regras Gerais",
+      "rules": [
+        {
+          "id": 1,
+          "title": "Arbitragem Colaborativa",
+          "description": "Todos cooperam no julgamento",
+          "details": "Espírito esportivo acima de tudo!",
+          "icon": "🤝",
+          "type": "info"
+        },
+        {
+          "id": 2,
+          "title": "Bola Fora",
+          "description": "Tocar teto, estruturas ou grades",
+          "details": "Além dos limites da quadra",
+          "icon": "📏",
+          "type": "info"
+        }
+      ]
+    }
   },
   "groups": [
     {
@@ -169,11 +205,11 @@
     }
   ],
   "sponsors": [
-    {"name": "Cesar Personal", "logo": "/img/patrocinadores/cesar_personal.png"},
-    {"name": "Dr. Alan", "logo": "/img/patrocinadores/dr_alan.png"},
-    {"name": "Felicty", "logo": "/img/patrocinadores/felicty.png"},
-    {"name": "Lenancio", "logo": "/img/patrocinadores/lenancio.png"},
-    {"name": "Portuga Arena", "logo": "/img/patrocinadores/portuga_arena.png"}
+    {"name": "Cesar - Personal Trainer", "logo": "/img/patrocinadores/cesar_personal.png"},
+    {"name": "Dr. Alan - Cirurgião Dentista", "logo": "/img/patrocinadores/dr_alan.png"},
+    {"name": "Felicty - Saúde e Bem Estar", "logo": "/img/patrocinadores/felicty.png"},
+    {"name": "Lenáncio - Acessória Contábil", "logo": "/img/patrocinadores/lenancio.png"},
+    {"name": "Arena Poliesportiva - Portuga", "logo": "/img/patrocinadores/portuga_arena.png"}
   ],
   "gallery": {
     "provider": "Day Silva Photo",

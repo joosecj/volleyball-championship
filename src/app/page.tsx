@@ -48,9 +48,8 @@ const navigationItems = [
 export default function Home() {
   const [activeSection, setActiveSection] = useState("groups");
 
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  tomorrow.setHours(9, 0, 0, 0);
+  // Data específica do torneio: 05/10/2025 às 9h da manhã
+  const tournamentDate = new Date(2025, 9, 5, 9, 0, 0, 0); // Mês é 0-indexado, então 9 = outubro
 
   const renderSection = () => {
     switch (activeSection) {
@@ -119,7 +118,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            <Countdown targetDate={tomorrow} />
+            <Countdown targetDate={tournamentDate} />
           </div>
         </div>
       </motion.header>
